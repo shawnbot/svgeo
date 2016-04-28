@@ -17,6 +17,40 @@ svgeo --only-features CA,OR,WA --zoom auto states.json > west-coast.svg
 svgeo --exclude-features AS,GU,PR --zoom auto states.json > no-territories.svg
 ```
 
+You can also generate meshes (connected outlines) of all or individual layers,
+which makes styling borders much nicer. If you've ever been frustrated with the
+jaggies that result from putting a stroke on two abutting features, then this
+is for you.
+
+```sh
+svgeo --mesh -- states.json > states.svg
+```
+
+### Great, now what do I do with these SVGs?
+I'm glad you asked. Debugging TopoJSON can be tricky; `svgeo` might just be a
+handy tool for ensuring that your topologies look the way you expect them to.
+But you can also use the resulting SVGs as web assets, either with regular
+old `<img>` tags:
+
+```html
+<img src="states.svg">
+```
+
+or, if you want to get fancy, the [SVG `<use>` element][use] lets you
+selectively import elements by ID and style them individually:
+
+```html
+<svg viewBox="0 0 850 500">
+  <use fill="#eee" xlink:href="states.svg#states"/>
+  <use fill="#def" xlink:href="states.svg#CA"/>
+  <use stroke="#000" xlink:href="states.svg#states-mesh"/>
+</svg>
+```
+
+You can also add styles to the SVG document with `--style`, which takes
+a CSS string like `'.feature { fill: #eee; } .mesh { stroke: #000; }'`.
+You can reference an external CSS file with `--style '@import url("path/to/style.css")'`.
+
 ## Installation
 
 ```
@@ -64,3 +98,4 @@ Coming soon!
 
 [TopoJSON]: https://github.com/mbostock/topojson
 [fof]: https://github.com/shawnbot/fof
+[use]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use
