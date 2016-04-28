@@ -77,6 +77,8 @@ Options:
                                                                                 
   --mesh, -m                Include mesh (connected outline) layers for
                             comma-separated IDs, or "*"                         
+  --style, --css            Include (literal) CSS styles in your SVG. To import
+                            a URL, use --style "@import url(style.css);"        
   --zoom, -z                The layer or feature id to zoom to                  
   --id                      The feature ID accessor (dotmap or fat arrow
                             expression)                          [default: "id"]
