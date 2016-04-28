@@ -163,5 +163,8 @@ module.exports = function(topology, options, done) {
       }
     }
 
+    root.selectAll('path')
+      .attr('vector-effect', 'non-scaling-stroke');
+
   }, done);
 };
