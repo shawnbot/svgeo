@@ -38,6 +38,9 @@ module.exports = function(topology, options, done) {
   if (!viewBox) {
     var bounds = options.bounds;
     if (bounds) {
+      if (bounds.length === 4) {
+        bounds = [[bounds[0], bounds[1]], [bounds[2], bounds[3]]];
+      }
     } else if (options.zoom) {
       bounds = getBounds(layers, path, options);
     } else if (topology.bbox) {
@@ -103,7 +106,7 @@ module.exports = function(topology, options, done) {
     var setProperty = function(prop, value) {
       this.setAttribute('data-' + normalizeAttributeName(prop), value);
     };
-    if (properties === true) {
+    if (properties === '*' || properties === true) {
       feature.each(function(d) {
         if (d.properties) {
           for (var prop in d.properties) {
