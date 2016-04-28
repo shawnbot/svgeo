@@ -60,6 +60,14 @@ var optimist = require('optimist')
       throw new Error('--bounds is incompatible with --viewbox');
     }
 
+    if (argv.ff && argv.of) {
+      throw new Error('--feature-filter is incompatible with --only-features');
+    } else if (argv.ff && argv.ef) {
+      throw new Error('--feature-filter is incompatible with --exclude-features');
+    } else if (argv.of && argv.ef) {
+      throw new Error('--only-features and --exclude-fearues are incompatible');
+    }
+
     if (argv.projection && argv.cartesian) {
       console.warn('--cartesian negates --projection; assuming Cartesian coordinates');
     }
