@@ -41,6 +41,8 @@ Options:
                             comma-separated IDs                                 
   --exclude-features, --ef  Exclude the features with these comma-separated IDs
                                                                                 
+  --mesh, -m                Include mesh (connected outline) layers for
+                            comma-separated IDs, or "*"                         
   --zoom, -z                The layer or feature id to zoom to                  
   --id                      The feature ID accessor (dotmap or fat arrow
                             expression)                          [default: "id"]
@@ -54,7 +56,6 @@ Options:
   -o                        Write the resulting SVG to this file (otherwise,
                             write to stdout)                                    
   -h, --help                Show this helpful message                           
-
 ```
 
 ## API
