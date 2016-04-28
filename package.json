@@ -1,6 +1,6 @@
 {
   "name": "svgeo",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Convert TopoJSON into semantic SVG",
   "main": "index.js",
   "bin": {
