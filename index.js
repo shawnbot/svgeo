@@ -151,15 +151,15 @@ module.exports = function(topology, options, done) {
         .map(getMesh);
 
       if (meshes.length) {
-        root.selectAll('g.mesh')
+        root.selectAll('path.mesh')
           .data(meshes)
           .enter()
-          .append('g')
+          .append('path')
             .attr('id', id)
             .attr('class', 'mesh LineString')
-            .append('path')
-              .attr('fill', 'none')
-              .attr('d', path);
+            .attr('fill', 'none')
+            .attr('style', inherit ? inherit : null)
+            .attr('d', path);
       }
     }
 
