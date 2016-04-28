@@ -1,35 +1,57 @@
 #!/usr/bin/env node
 var optimist = require('optimist')
-  .options('id', {
-    describe: 'the feature id accessor (dotmap or fat arrow expression)',
-    default: 'id'
-  })
+  .usage('$0 [options] [input] [-o output]')
+  .wrap(80)
   .options('projection', {
-    describe: 'the d3.geo projection to use (use "null" or -C for cartesian)',
+    describe: 'The d3.geo projection to use (use "null" or -C for cartesian)',
     default: 'mercator'
   })
   .options('cartesian', {
     describe: 'Assume Cartesian coordinates (no geographic projection)',
-    alias: 'C',
-    boolean: true
+    alias: 'C'
   })
   .options('layers', {
-    describe: 'a comma-separated list of keys to whitelist from topology.objects',
+    describe: 'A comma-separated list of keys to whitelist from topology.objects',
     default: null
   })
+  .options('feature-filter', {
+    describe: 'Filter features by this dot or fat arrow expression',
+    alias: 'ff'
+  })
+  .options('only-features', {
+    describe: 'Only include the features with these comma-separated IDs',
+    alias: 'of'
+  })
+  .options('exclude-features', {
+    describe: 'Exclude the features with these comma-separated IDs',
+    alias: 'ef'
+  })
   .options('zoom', {
-    describe: 'the layer or feature id to zoom to',
+    describe: 'The layer or feature id to zoom to',
     alias: 'z'
   })
+  .options('id', {
+    describe: 'The feature ID accessor (dotmap or fat arrow expression)',
+    default: 'id'
+  })
+  .options('properties', {
+    describe: 'A comma-separated list of feature properties to convert to data attributes, or "*" (or as a boolean flag)',
+    default: null
+  })
   .options('bounds', {
-    describe: 'the geographic bounds to zoom to, in the form "west north east south"',
+    describe: 'The geographic bounds to zoom to, in the form "west north east south"',
     alias: 'b'
   })
   .options('viewbox', {
-    describe: 'the SVG viewBox, in the form "left top width height" (projected pixels)'
+    describe: 'The SVG viewBox, in the form "left top width height" (projected pixels)',
+    alias: 'V'
   })
   .options('o', {
-    describe: 'write the resulting SVG to this file (otherwise, write to stdout)'
+    describe: 'Write the resulting SVG to this file (otherwise, write to stdout)'
+  })
+  .options('h', {
+    describe: 'Show this helpful message',
+    alias: 'help'
   })
   .check(function(argv) {
     if (argv.zoom && (argv.bounds || argv.viewbox)) {
@@ -66,6 +88,21 @@ if (argv.bounds) {
   argv.bounds = parseNumberList(argv.bounds);
 } else if (argv.viewbox) {
   argv.viewBox = parseNumberList(argv.viewbox);
+}
+
+var featureIds;
+if (argv.ff) {
+  argv.featureFilter = argv.ff;
+} else if (argv['only-features']) {
+  featureIds = argv['only-features'].split(',');
+  argv.featureFilter = function(d) {
+    return featureIds.indexOf(d.id) > -1;
+  };
+} else if (argv['exclude-features']) {
+  featureIds = argv['exclude-features'].split(',');
+  argv.featureFilter = function(d) {
+    return featureIds.indexOf(d.id) === -1;
+  };
 }
 
 async.waterfall([
