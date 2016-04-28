@@ -30,6 +30,10 @@ var optimist = require('optimist')
     describe: 'Include mesh (connected outline) layers for comma-separated IDs, or "*"',
     alias: 'm'
   })
+  .options('style', {
+    describe: 'Include (literal) CSS styles in your SVG. To import a URL, use --style "@import url(style.css);"',
+    alias: 'css'
+  })
   .options('zoom', {
     describe: 'The layer or feature id to zoom to',
     alias: 'z'
