@@ -1,0 +1,39 @@
+{
+  "name": "svgeo",
+  "version": "0.1.0",
+  "description": "Convert TopoJSON into semantic SVG",
+  "main": "index.js",
+  "bin": {
+    "svgeo": "svgeo.js"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shawnbot/svgeo.git"
+  },
+  "keywords": [
+    "svg",
+    "topojson",
+    "geo"
+  ],
+  "author": "Shawn Allen <shawn.allen@hush.com>",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/shawnbot/svgeo/issues"
+  },
+  "homepage": "https://github.com/shawnbot/svgeo#readme",
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "async": "^1.5.2",
+    "d3": "^3.5.16",
+    "fof": "^1.2.0",
+    "jsdom": "^8.4.1",
+    "module-exists": "^0.1.1",
+    "optimist": "^0.6.1",
+    "topojson": "^1.6.24"
+  }
+}
