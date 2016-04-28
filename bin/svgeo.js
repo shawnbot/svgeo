@@ -26,6 +26,10 @@ var optimist = require('optimist')
     describe: 'Exclude the features with these comma-separated IDs',
     alias: 'ef'
   })
+  .options('mesh', {
+    describe: 'Include mesh (connected outline) layers for comma-separated IDs, or "*"',
+    alias: 'm'
+  })
   .options('zoom', {
     describe: 'The layer or feature id to zoom to',
     alias: 'z'
