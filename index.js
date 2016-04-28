@@ -99,7 +99,7 @@ module.exports = function(topology, options, done) {
       .append('g')
         .attr('id', id)
         .attr('class', function(d) {
-          return 'feature ' + d.type;
+          return ['feature', d.type].join(' ');
         });
 
     var properties = options.properties;
@@ -139,6 +139,28 @@ module.exports = function(topology, options, done) {
       var title = fof(options.title);
       shape.append('title')
         .text(title);
+    }
+
+    if (options.mesh) {
+      var getMesh = function(d) {
+        return d.mesh;
+      };
+
+      var meshes = layers
+        .filter(getMesh)
+        .map(getMesh);
+
+      if (meshes.length) {
+        root.selectAll('g.mesh')
+          .data(meshes)
+          .enter()
+          .append('g')
+            .attr('id', id)
+            .attr('class', 'mesh LineString')
+            .append('path')
+              .attr('fill', 'none')
+              .attr('d', path);
+      }
     }
 
   }, done);
