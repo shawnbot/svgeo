@@ -4,7 +4,7 @@
   "description": "Convert TopoJSON into semantic SVG",
   "main": "index.js",
   "bin": {
-    "svgeo": "svgeo.js"
+    "svgeo": "bin/svgeo.js"
   },
   "scripts": {
     "test": "mocha"
