@@ -70,7 +70,8 @@ module.exports = function(topology, options, done) {
       svg.attr('viewBox', Array.isArray(viewBox)
         ? viewBox.join(' ')
         : viewBox);
-    } else if (bounds) {
+    } else if (bounds && bounds[0] && bounds[1]) {
+      // console.warn('bounds:', bounds);
       svg.attr('viewBox', [
         bounds[0][0],
         bounds[0][1],
